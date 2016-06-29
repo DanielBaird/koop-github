@@ -2,6 +2,9 @@ var debug = require('debug')('koop:github:model')
 var geohub = require('geohub')
 var provider = require('koop-provider')
 
+// custom geohub
+geohub = require('../../koop-geohub-by-sha')
+
 /**
  * creates new github model with access to koop instance
  *
@@ -27,7 +30,9 @@ var githubModel = function (koop) {
   model.find = function (options, callback) {
     var user = options.user
     var repo = options.repo
-    var file = options.file ? options.file.replace(/::/g, '/') : null
+    var sha = options.sha ? options.sha : null
+    // file or sha
+    var file = options.file ? options.file.replace(/::/g, '/') : sha
     var query = options.query || {}
     var type = 'github'
     var key = [user, repo, file].join('/')
@@ -44,6 +49,7 @@ var githubModel = function (koop) {
         user: user,
         repo: repo,
         path: file,
+        sha: sha,
         token: model.config.ghtoken
       }, function (err, geojson) {
         if (err) return callback(err)

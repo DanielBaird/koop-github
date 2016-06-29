@@ -3,6 +3,7 @@ module.exports = {
   'get /github/rate_limit': 'rate_limit',
   'get /github/:user': 'notFound',
   'get /github/:user/:repo': 'getRepo',
+  'get /github/:user/:repo/sha/:sha': 'getRepo',
   'get /github/:user/:repo/FeatureServer': 'featureservice',
   'get /github/:user/:repo/FeatureServer/:layer': 'featureservice',
   'get /github/:user/:repo/FeatureServer/:layer/:method': 'featureservice',

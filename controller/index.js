@@ -168,6 +168,15 @@ function githubController (model) {
       }, _send)
     }
 
+    if (req.params.user && req.params.repo && req.params.sha) {
+      return model.find({
+        user: req.params.user,
+        repo: req.params.repo,
+        sha: req.params.sha,
+        query: req.query
+      }, _send)
+    }
+
     ctrl.notFound(req, res)
   }
 
